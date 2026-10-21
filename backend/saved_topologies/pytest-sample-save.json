@@ -1,0 +1,239 @@
+{
+  "id": "pytest-sample-save",
+  "name": "Enterprise Campus Network (Sample)",
+  "devices": [
+    {
+      "id": "r1",
+      "name": "Core Router R1",
+      "type": "router",
+      "ip": "192.168.1.1",
+      "x": 350.0,
+      "y": 100.0
+    },
+    {
+      "id": "r2",
+      "name": "Gateway Router R2",
+      "type": "router",
+      "ip": "192.168.2.1",
+      "x": 650.0,
+      "y": 100.0
+    },
+    {
+      "id": "sw1",
+      "name": "Switch SW-HR",
+      "type": "switch",
+      "ip": null,
+      "x": 200.0,
+      "y": 260.0
+    },
+    {
+      "id": "sw2",
+      "name": "Switch SW-Ops",
+      "type": "switch",
+      "ip": null,
+      "x": 500.0,
+      "y": 260.0
+    },
+    {
+      "id": "sw3",
+      "name": "Switch SW-DataCenter",
+      "type": "switch",
+      "ip": null,
+      "x": 800.0,
+      "y": 260.0
+    },
+    {
+      "id": "pc_hr",
+      "name": "HR PC",
+      "type": "pc",
+      "ip": "192.168.10.11",
+      "x": 120.0,
+      "y": 420.0
+    },
+    {
+      "id": "pc_fin",
+      "name": "Finance PC",
+      "type": "pc",
+      "ip": "192.168.10.12",
+      "x": 260.0,
+      "y": 420.0
+    },
+    {
+      "id": "pc_it",
+      "name": "IT PC",
+      "type": "pc",
+      "ip": "192.168.20.15",
+      "x": 420.0,
+      "y": 420.0
+    },
+    {
+      "id": "pc_eng",
+      "name": "Eng PC",
+      "type": "pc",
+      "ip": "192.168.20.16",
+      "x": 560.0,
+      "y": 420.0
+    },
+    {
+      "id": "srv_web",
+      "name": "Web Server",
+      "type": "server",
+      "ip": "10.0.0.10",
+      "x": 740.0,
+      "y": 420.0
+    },
+    {
+      "id": "srv_db",
+      "name": "Database Server",
+      "type": "server",
+      "ip": "10.0.0.20",
+      "x": 880.0,
+      "y": 420.0
+    }
+  ],
+  "links": [
+    {
+      "id": "l_r1_r2",
+      "source": "r1",
+      "target": "r2",
+      "cost": 1.0,
+      "latency": 4.0,
+      "bandwidth": 1000.0,
+      "status": "active",
+      "utilization": 35.0,
+      "packet_loss": 0.1,
+      "failure_history": 0,
+      "age_months": 6
+    },
+    {
+      "id": "l_r1_sw1",
+      "source": "r1",
+      "target": "sw1",
+      "cost": 2.0,
+      "latency": 5.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 55.0,
+      "packet_loss": 0.4,
+      "failure_history": 1,
+      "age_months": 14
+    },
+    {
+      "id": "l_r1_sw2",
+      "source": "r1",
+      "target": "sw2",
+      "cost": 2.0,
+      "latency": 6.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 40.0,
+      "packet_loss": 0.2,
+      "failure_history": 0,
+      "age_months": 10
+    },
+    {
+      "id": "l_r2_sw2",
+      "source": "r2",
+      "target": "sw2",
+      "cost": 2.0,
+      "latency": 5.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 45.0,
+      "packet_loss": 0.3,
+      "failure_history": 0,
+      "age_months": 8
+    },
+    {
+      "id": "l_r2_sw3",
+      "source": "r2",
+      "target": "sw3",
+      "cost": 1.5,
+      "latency": 3.0,
+      "bandwidth": 1000.0,
+      "status": "active",
+      "utilization": 78.0,
+      "packet_loss": 1.8,
+      "failure_history": 2,
+      "age_months": 24
+    },
+    {
+      "id": "l_sw1_hr",
+      "source": "sw1",
+      "target": "pc_hr",
+      "cost": 1.0,
+      "latency": 2.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 25.0,
+      "packet_loss": 0.0,
+      "failure_history": 0,
+      "age_months": 12
+    },
+    {
+      "id": "l_sw1_fin",
+      "source": "sw1",
+      "target": "pc_fin",
+      "cost": 1.0,
+      "latency": 2.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 30.0,
+      "packet_loss": 0.1,
+      "failure_history": 0,
+      "age_months": 12
+    },
+    {
+      "id": "l_sw2_it",
+      "source": "sw2",
+      "target": "pc_it",
+      "cost": 1.0,
+      "latency": 2.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 60.0,
+      "packet_loss": 0.8,
+      "failure_history": 1,
+      "age_months": 18
+    },
+    {
+      "id": "l_sw2_eng",
+      "source": "sw2",
+      "target": "pc_eng",
+      "cost": 1.0,
+      "latency": 2.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 50.0,
+      "packet_loss": 0.5,
+      "failure_history": 0,
+      "age_months": 18
+    },
+    {
+      "id": "l_sw3_web",
+      "source": "sw3",
+      "target": "srv_web",
+      "cost": 1.0,
+      "latency": 1.5,
+      "bandwidth": 1000.0,
+      "status": "active",
+      "utilization": 65.0,
+      "packet_loss": 0.6,
+      "failure_history": 0,
+      "age_months": 12
+    },
+    {
+      "id": "l_sw3_db",
+      "source": "sw3",
+      "target": "srv_db",
+      "cost": 1.0,
+      "latency": 1.0,
+      "bandwidth": 1000.0,
+      "status": "active",
+      "utilization": 85.0,
+      "packet_loss": 2.5,
+      "failure_history": 3,
+      "age_months": 36
+    }
+  ]
+}
