@@ -1,10 +1,11 @@
 import React from 'react';
-import { Network, LayoutDashboard, Share2, AlertTriangle, ShieldCheck, Cpu } from 'lucide-react';
+import { Network, LayoutDashboard, Share2, AlertTriangle, ShieldCheck, Cpu, Activity } from 'lucide-react';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'editor', label: 'Topology Editor', icon: Share2 },
+    { id: 'protocols', label: 'Protocol Simulator', icon: Activity },
     { id: 'failure-analysis', label: 'Failure Analysis & Resilience', icon: AlertTriangle },
     { id: 'ml-prediction', label: 'Link Risk Prediction (ML)', icon: Cpu },
   ];
@@ -35,7 +36,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
                 <button
                   key={item.id}
                   onClick={() => setActiveTab(item.id)}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? 'bg-blue-600 text-white shadow-xs'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'

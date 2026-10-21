@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import TopologyEditor from './pages/TopologyEditor';
+import ProtocolSimulator from './pages/ProtocolSimulator';
 import FailureAnalysis from './pages/FailureAnalysis';
 import LinkRiskPrediction from './pages/LinkRiskPrediction';
 import { NetworkProvider, useNetwork } from './context/NetworkContext';
@@ -33,6 +34,7 @@ const MainContent = () => {
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         {activeTab === 'dashboard' && <Dashboard setActiveTab={setActiveTab} />}
         {activeTab === 'editor' && <TopologyEditor />}
+        {activeTab === 'protocols' && <ProtocolSimulator />}
         {activeTab === 'failure-analysis' && <FailureAnalysis />}
         {activeTab === 'ml-prediction' && <LinkRiskPrediction />}
       </main>

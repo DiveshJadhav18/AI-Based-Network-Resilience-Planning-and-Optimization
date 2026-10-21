@@ -89,4 +89,36 @@ export const getMLMetrics = async () => {
   return res.data;
 };
 
+// ==================== NEW CN PROTOCOL API SERVICES ====================
+
+export const calculateSubnet = async (subnetData) => {
+  const res = await api.post('/api/cn/subnet-calc', subnetData);
+  return res.data;
+};
+
+export const getRoutingTables = async (topology) => {
+  const res = await api.post('/api/cn/routing-tables', topology);
+  return res.data;
+};
+
+export const runPing = async (pingData) => {
+  const res = await api.post('/api/cn/ping', pingData);
+  return res.data;
+};
+
+export const runTraceroute = async (tracerouteData) => {
+  const res = await api.post('/api/cn/traceroute', tracerouteData);
+  return res.data;
+};
+
+export const getSTPStatus = async (topology) => {
+  const res = await api.post('/api/cn/stp-status', topology);
+  return res.data;
+};
+
+export const runPacketSimulation = async (packetData) => {
+  const res = await api.post('/api/cn/packet-simulation', packetData);
+  return res.data;
+};
+
 export default api;

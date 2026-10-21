@@ -8,7 +8,12 @@
       "type": "router",
       "ip": "192.168.1.1",
       "x": 350.0,
-      "y": 100.0
+      "y": 100.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.1.1",
+      "mac_address": "00:1A:2B:3C:4D:01",
+      "vlan_id": 1,
+      "bridge_priority": 32768
     },
     {
       "id": "r2",
@@ -16,7 +21,12 @@
       "type": "router",
       "ip": "192.168.2.1",
       "x": 650.0,
-      "y": 100.0
+      "y": 100.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.2.1",
+      "mac_address": "00:1A:2B:3C:4D:02",
+      "vlan_id": 1,
+      "bridge_priority": 32768
     },
     {
       "id": "sw1",
@@ -24,7 +34,12 @@
       "type": "switch",
       "ip": null,
       "x": 200.0,
-      "y": 260.0
+      "y": 260.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": null,
+      "mac_address": "00:AA:BB:CC:DD:01",
+      "vlan_id": 10,
+      "bridge_priority": 32768
     },
     {
       "id": "sw2",
@@ -32,7 +47,12 @@
       "type": "switch",
       "ip": null,
       "x": 500.0,
-      "y": 260.0
+      "y": 260.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": null,
+      "mac_address": "00:AA:BB:CC:DD:02",
+      "vlan_id": 20,
+      "bridge_priority": 28672
     },
     {
       "id": "sw3",
@@ -40,7 +60,12 @@
       "type": "switch",
       "ip": null,
       "x": 800.0,
-      "y": 260.0
+      "y": 260.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": null,
+      "mac_address": "00:AA:BB:CC:DD:03",
+      "vlan_id": 30,
+      "bridge_priority": 32768
     },
     {
       "id": "pc_hr",
@@ -48,7 +73,12 @@
       "type": "pc",
       "ip": "192.168.10.11",
       "x": 120.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.10.1",
+      "mac_address": "00:E0:4C:11:22:01",
+      "vlan_id": 10,
+      "bridge_priority": 32768
     },
     {
       "id": "pc_fin",
@@ -56,7 +86,12 @@
       "type": "pc",
       "ip": "192.168.10.12",
       "x": 260.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.10.1",
+      "mac_address": "00:E0:4C:11:22:02",
+      "vlan_id": 10,
+      "bridge_priority": 32768
     },
     {
       "id": "pc_it",
@@ -64,7 +99,12 @@
       "type": "pc",
       "ip": "192.168.20.15",
       "x": 420.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.20.1",
+      "mac_address": "00:E0:4C:22:33:01",
+      "vlan_id": 20,
+      "bridge_priority": 32768
     },
     {
       "id": "pc_eng",
@@ -72,7 +112,12 @@
       "type": "pc",
       "ip": "192.168.20.16",
       "x": 560.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "192.168.20.1",
+      "mac_address": "00:E0:4C:22:33:02",
+      "vlan_id": 20,
+      "bridge_priority": 32768
     },
     {
       "id": "srv_web",
@@ -80,7 +125,12 @@
       "type": "server",
       "ip": "10.0.0.10",
       "x": 740.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "10.0.0.1",
+      "mac_address": "00:50:56:AA:BB:01",
+      "vlan_id": 30,
+      "bridge_priority": 32768
     },
     {
       "id": "srv_db",
@@ -88,7 +138,12 @@
       "type": "server",
       "ip": "10.0.0.20",
       "x": 880.0,
-      "y": 420.0
+      "y": 420.0,
+      "subnet_mask": "255.255.255.0",
+      "gateway": "10.0.0.1",
+      "mac_address": "00:50:56:AA:BB:02",
+      "vlan_id": 30,
+      "bridge_priority": 32768
     }
   ],
   "links": [
@@ -103,7 +158,13 @@
       "utilization": 35.0,
       "packet_loss": 0.1,
       "failure_history": 0,
-      "age_months": 6
+      "age_months": 6,
+      "port_mode": "access",
+      "allowed_vlans": [
+        1
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_r1_sw1",
@@ -116,7 +177,15 @@
       "utilization": 55.0,
       "packet_loss": 0.4,
       "failure_history": 1,
-      "age_months": 14
+      "age_months": 14,
+      "port_mode": "trunk",
+      "allowed_vlans": [
+        10,
+        20,
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_r1_sw2",
@@ -129,7 +198,15 @@
       "utilization": 40.0,
       "packet_loss": 0.2,
       "failure_history": 0,
-      "age_months": 10
+      "age_months": 10,
+      "port_mode": "trunk",
+      "allowed_vlans": [
+        10,
+        20,
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_r2_sw2",
@@ -142,7 +219,15 @@
       "utilization": 45.0,
       "packet_loss": 0.3,
       "failure_history": 0,
-      "age_months": 8
+      "age_months": 8,
+      "port_mode": "trunk",
+      "allowed_vlans": [
+        10,
+        20,
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_r2_sw3",
@@ -155,7 +240,36 @@
       "utilization": 78.0,
       "packet_loss": 1.8,
       "failure_history": 2,
-      "age_months": 24
+      "age_months": 24,
+      "port_mode": "trunk",
+      "allowed_vlans": [
+        10,
+        20,
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
+    },
+    {
+      "id": "l_sw1_sw2",
+      "source": "sw1",
+      "target": "sw2",
+      "cost": 4.0,
+      "latency": 3.0,
+      "bandwidth": 100.0,
+      "status": "active",
+      "utilization": 20.0,
+      "packet_loss": 0.0,
+      "failure_history": 0,
+      "age_months": 5,
+      "port_mode": "trunk",
+      "allowed_vlans": [
+        10,
+        20,
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw1_hr",
@@ -168,7 +282,13 @@
       "utilization": 25.0,
       "packet_loss": 0.0,
       "failure_history": 0,
-      "age_months": 12
+      "age_months": 12,
+      "port_mode": "access",
+      "allowed_vlans": [
+        10
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw1_fin",
@@ -181,7 +301,13 @@
       "utilization": 30.0,
       "packet_loss": 0.1,
       "failure_history": 0,
-      "age_months": 12
+      "age_months": 12,
+      "port_mode": "access",
+      "allowed_vlans": [
+        10
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw2_it",
@@ -194,7 +320,13 @@
       "utilization": 60.0,
       "packet_loss": 0.8,
       "failure_history": 1,
-      "age_months": 18
+      "age_months": 18,
+      "port_mode": "access",
+      "allowed_vlans": [
+        20
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw2_eng",
@@ -207,7 +339,13 @@
       "utilization": 50.0,
       "packet_loss": 0.5,
       "failure_history": 0,
-      "age_months": 18
+      "age_months": 18,
+      "port_mode": "access",
+      "allowed_vlans": [
+        20
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw3_web",
@@ -220,7 +358,13 @@
       "utilization": 65.0,
       "packet_loss": 0.6,
       "failure_history": 0,
-      "age_months": 12
+      "age_months": 12,
+      "port_mode": "access",
+      "allowed_vlans": [
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     },
     {
       "id": "l_sw3_db",
@@ -233,7 +377,13 @@
       "utilization": 85.0,
       "packet_loss": 2.5,
       "failure_history": 3,
-      "age_months": 36
+      "age_months": 36,
+      "port_mode": "access",
+      "allowed_vlans": [
+        30
+      ],
+      "stp_role": "designated",
+      "stp_state": "forwarding"
     }
   ]
 }

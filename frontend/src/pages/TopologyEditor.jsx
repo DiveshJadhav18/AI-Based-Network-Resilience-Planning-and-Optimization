@@ -488,6 +488,38 @@ const TopologyEditor = () => {
                   />
                 </div>
               </div>
+
+              <div className="grid grid-cols-2 gap-2 pt-1 border-t border-slate-100">
+                <div>
+                  <label className="text-slate-500 block mb-0.5">Default Gateway</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 192.168.10.1"
+                    value={selectedNode.gateway || ''}
+                    onChange={(e) => {
+                      const updated = { ...selectedNode, gateway: e.target.value };
+                      setSelectedNode(updated);
+                      updateDevice(updated);
+                    }}
+                    className="w-full px-2 py-1 border border-slate-300 rounded font-mono text-[11px]"
+                  />
+                </div>
+                <div>
+                  <label className="text-slate-500 block mb-0.5">VLAN ID (1-4094)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    max="4094"
+                    value={selectedNode.vlan_id ?? 1}
+                    onChange={(e) => {
+                      const updated = { ...selectedNode, vlan_id: parseInt(e.target.value, 10) || 1 };
+                      setSelectedNode(updated);
+                      updateDevice(updated);
+                    }}
+                    className="w-full px-2 py-1 border border-slate-300 rounded font-mono text-[11px]"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         )}

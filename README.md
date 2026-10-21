@@ -1,33 +1,41 @@
-# AI-Based Network Resilience Planning and Optimization
+# NetResilience Studio: AI-Based Network Resilience Planning and Optimization
 
-A student-friendly Computer Networks web application designed to demonstrate fundamental network topology modeling, graph-based routing algorithms, single-point-of-failure (bridge) analysis, link failure simulation, resilience optimization, and machine learning telemetry risk estimation.
+A student-friendly, full-featured Computer Networks simulation platform designed to demonstrate interactive network topology modeling, IPv4 subnetting & CIDR calculations, next-hop routing tables, ICMP Ping & Traceroute, L2 Ethernet / L3 IP packet framing, Spanning Tree Protocol (STP 802.1D) loop prevention, single-point-of-failure bridge detection, failover simulation, and Random Forest link failure risk estimation.
 
 ---
 
 ## 1. Project Overview & Problem Statement
 
-Modern communication networks require high resilience to prevent catastrophic partitioning during hardware failures, cable cuts, or congestion. In enterprise topologies, understanding single points of failure (bridges) and dynamically evaluating alternate routes is essential for reliability.
+Modern communication networks require high resilience and fault tolerance to prevent catastrophic partitioning during hardware failures, cable cuts, or congestion. In enterprise topologies, understanding single points of failure (bridges), VLAN segmentation, loop prevention, and packet framing is fundamental for computer networking students and engineers.
 
-This project delivers an interactive web environment where users can:
+This platform delivers an interactive simulation and diagnostic environment where users can:
 1. **Design and configure network topologies** with Routers, Switches, PCs, and Servers.
-2. **Execute shortest-path routing** using Dijkstra's algorithm.
-3. **Detect critical bridge connections** whose removal fragments the network into disconnected segments.
-4. **Simulate link outages** in real time, calculating isolated devices and alternate paths.
-5. **Receive algorithmic backup recommendations** that intelligently restore connectivity.
-6. **Compare quantitative resilience metrics** before and after applying backup links.
-7. **Predict link failure probability** using a Random Forest machine learning model trained on network telemetry (bandwidth utilization, latency, packet drop rate, previous outage count, and cable age).
+2. **Calculate IPv4 Subnets & CIDR Prefixes** with network addresses, usable host ranges, and broadcast bounds.
+3. **Inspect Router Routing Tables** with connected interfaces, static routes, and Dijkstra-OSPF paths.
+4. **Simulate ICMP Echo (Ping)** with Round-Trip Times (RTT), TTL, and packet loss diagnostics.
+5. **Simulate Traceroute** to track hop-by-hop traversal and intermediate router response times.
+6. **Walk through L2/L3 Packet Framing** inspecting Ethernet MAC addresses (and router MAC rewrites), IPv4 headers, and TCP/UDP handshakes.
+7. **Simulate Spanning Tree Protocol (STP 802.1D)** with Root Bridge elections and Alternate/Blocking port states to prevent broadcast storms.
+8. **Detect critical bridge connections** whose removal disconnects network segments.
+9. **Simulate link outages** in real time, calculating isolated devices and alternate paths.
+10. **Receive algorithmic backup recommendations** that intelligently restore connectivity.
+11. **Compare quantitative resilience metrics** before and after applying backup links.
+12. **Predict link failure probability** using a Random Forest machine learning model trained on network telemetry.
+13. **Explore the CN Learning Mode** with direct viva questions, formulas, and failure case explanations.
 
 ---
 
 ## 2. Computer Networks Concepts Demonstrated
 
 - **Graph Representation of Networks:** Devices modeled as graph vertices \(V\) and links modeled as weighted edges \(E\).
-- **Dijkstra's Shortest Path Algorithm:** Optimal routing determined by accumulated link metric costs.
-- **Bridge Detection:** Identification of critical edges that increase the number of connected components when severed.
-- **Network Partitioning & Connected Components:** Quantifying reachability loss and isolated subnetworks.
-- **Link Telemetry Analysis:** Evaluation of bandwidth utilization, latency in milliseconds, and packet drop percentages.
-- **Failover & Alternate Path Routing:** Dynamic recalculation of paths avoiding failed transmission links.
-- **Network Redundancy Planning:** Proactive insertion of candidate backup edges to eliminate critical single points of failure.
+- **Subnetting & CIDR (RFC 4632):** Prefix masking, host allocation ($2^{32-\text{prefix}} - 2$), and subnet membership tests.
+- **Dijkstra's Shortest Path Algorithm:** Optimal routing determined by accumulated link metric costs ($O(E + V \log V)$).
+- **Routing Tables & Next-Hop Forwarding:** Connected routes, next-hop IP mapping, and outgoing interface lookup.
+- **ICMP Echo & Traceroute (RFC 792):** Ping probes, round-trip time (RTT), TTL decrementing, and Time Exceeded responses.
+- **Layer 2 / Layer 3 Encapsulation:** Ethernet framing, ARP address resolution, and router MAC address rewriting.
+- **Spanning Tree Protocol (IEEE 802.1D):** Bridge Priority + MAC comparison, Root Bridge election, and blocking redundant links to prevent switching loops.
+- **Bridge Detection:** Identification of critical edges that increase the number of connected components when severed ($C(G - e) > C(G)$).
+- **Fault Tolerance & Alternate Path Routing:** Dynamic recalculation of paths avoiding failed transmission links.
 
 ---
 
@@ -61,12 +69,21 @@ This project delivers an interactive web environment where users can:
 ### Page 2: Network Topology Editor
 - Interactive React Flow canvas: Drag devices, connect handles to establish links, and zoom/pan.
 - Add and configure routers, switches, workstation PCs, and servers.
-- Inspect and edit device names, types, and IPv4 addresses.
+- Inspect and edit device names, types, IPv4 addresses, subnet masks, gateways, and VLAN IDs.
 - Configure link cost, latency (ms), bandwidth (Mbps), and operational status.
 - Built-in Dijkstra routing calculator: Select source and destination to compute and visually animate the shortest path.
 - Save and load topologies from local storage.
 
-### Page 3: Failure Analysis & Resilience
+### Page 3: Protocol Simulator (NEW)
+- **Subnet & CIDR Calculator:** Computes network ID, broadcast, and usable host bounds; tests whether two devices reside in the same subnet.
+- **Routing Tables:** Live table view of connected and computed routes for every router in the topology.
+- **ICMP Ping Console:** Transmits live probes, measures RTT, and displays realistic console output.
+- **Traceroute:** Tracks hop-by-hop traversal and detects unreachable nodes.
+- **Packet Flow (L2/L3):** Step-by-step frame inspection showing MAC rewrites at routers, unchanged end-to-end IPs, and TCP 3-way handshakes (SYN, SYN-ACK, ACK).
+- **Spanning Tree Protocol (STP):** Elects the Root Bridge by lowest Bridge ID and transitions redundant loop ports to Blocking/Discarding.
+- **CN Learning Mode:** Built-in modal explaining OSI layers, protocol purpose, formulas, and viva questions.
+
+### Page 4: Failure Analysis & Resilience
 - Select any link and click **Simulate Failure**.
 - Highlights severed connections in dashed red.
 - Detects whether the network was partitioned, lists all affected isolated devices, and checks server reachability.
@@ -75,9 +92,9 @@ This project delivers an interactive web environment where users can:
 - One-click **Apply Recommendation** button that directly adds the backup link to the topology.
 - Quantitative Before vs. After comparison table.
 
-### Page 4: Link Risk Prediction (ML)
+### Page 5: Link Risk Prediction (ML)
 - Evaluates telemetry factors (utilization, latency, packet loss, failure history, age).
-- Random Forest model evaluation metrics: Accuracy, Precision, Recall, and F1-Score.
+- Random Forest model evaluation metrics: Accuracy (95.3%), Precision, Recall, and F1-Score.
 - Interactive table showing failure probability and Low/Medium/High risk classifications.
 - Detail inspector breaking down telemetry metrics and reasoning for each connection.
 
@@ -94,8 +111,8 @@ This project delivers an interactive web environment where users can:
 Open PowerShell and navigate to the project root:
 
 ```powershell
-cd "c:\Users\Divesh Jadhav\Downloads\CN_Project\backend"
-python -m pip install -r requirements.txt
+cd "c:\Users\Divesh Jadhav\Downloads\CN_Project"
+$env:PYTHONPATH="backend"
 python -m uvicorn main:app --reload --host 127.0.0.1 --port 8000
 ```
 
@@ -119,20 +136,16 @@ Frontend will be active at: `http://localhost:5173`
 ## 6. Running Automated Tests
 
 ### Backend Unit & Integration Tests (pytest)
-Run the automated pytest test suite covering all 12 validation and graph scenarios:
-
-```powershell
-cd "c:\Users\Divesh Jadhav\Downloads\CN_Project\backend"
-python -m pytest tests -v
-```
-
-### End-to-End API Pipeline Verification
-Run the verification script against the running FastAPI server:
+Run the automated pytest test suite covering all 19 validation, graph, and protocol scenarios:
 
 ```powershell
 cd "c:\Users\Divesh Jadhav\Downloads\CN_Project"
-python verify_pipeline.py
+$env:PYTHONPATH="backend"
+python -m pytest backend/tests -v
 ```
+
+**Test Results:**
+- 19 passed in 6.33s (including Subnetting, Routing Tables, Ping, Traceroute, STP, and TCP Packet Framing).
 
 ### Frontend Production Build
 To verify production bundling without compilation or lint errors:
@@ -146,6 +159,6 @@ npm run build
 
 ## 7. Educational Limitations & Assumptions
 
-1. **Graph Model vs. Real Hardware:** The system models network connections as graph edges with weights. It is intended for educational topology simulation and does not claim to run real router firmware (Cisco IOS) or dynamic routing protocols (OSPF, BGP, RIP).
-2. **Layer 2 / Layer 3 Abstraction:** Switches and routers are treated as nodes in an undirected graph; broadcast domains and VLAN tags are not simulated.
-3. **ML Telemetry Data:** The failure risk prediction model is trained on reproducible synthetic network telemetry metrics for educational demonstration.
+1. **Graph Model vs. Physical Hardware:** The system models network connections as graph edges with metric weights; this project is an educational model and does not claim to run real router operating systems (Cisco IOS) or dynamic protocols like BGP in kernel space.
+2. **Layer 2 / Layer 3 Abstraction:** Devices are vertices in a graph; broadcast domains and VLAN tagging are simulated logically for college-level clarity.
+3. **ML Synthetic Telemetry:** The Random Forest model is trained on synthetic telemetry data to demonstrate how predictive machine learning can complement traditional graph algorithms.

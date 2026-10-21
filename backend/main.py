@@ -9,17 +9,24 @@ from fastapi.middleware.cors import CORSMiddleware
 from models import (
     Topology, ValidationResult, CriticalLinksResponse,
     PathRequest, PathResponse, FailureSimRequest, FailureSimResponse,
-    RecommendationResponse, ComparisonResponse, LinkRiskPrediction, MLMetricsResponse
+    RecommendationResponse, ComparisonResponse, LinkRiskPrediction, MLMetricsResponse,
+    SubnetCalcRequest, SubnetCalcResponse, RouterRoutingTable,
+    PingRequest, PingResponse, TracerouteRequest, TracerouteResponse,
+    STPResponse, PacketSimulationRequest, PacketSimulationResponse
 )
 from network_analysis import validate_topology, find_critical_links, calculate_shortest_path, simulate_link_failure
 from recommendations import generate_backup_recommendation, compare_connectivity
 from ml_model import ml_service
 from sample_data import get_sample_topology
+from cn_protocols import (
+    calculate_subnet, generate_router_routing_tables, simulate_ping,
+    simulate_traceroute, simulate_stp, simulate_packet_walkthrough
+)
 
 app = FastAPI(
     title="AI-Based Network Resilience Planning and Optimization API",
-    description="Backend services for topology management, graph connectivity, bridge analysis, and ML risk prediction.",
-    version="1.0.0"
+    description="Backend services for topology management, graph connectivity, bridge analysis, CN protocol simulations, and ML risk prediction.",
+    version="2.0.0"
 )
 
 # Enable CORS for local Vite development
@@ -36,7 +43,7 @@ STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 
 @app.get("/api/health")
 def health_check():
-    return {"status": "ok", "service": "network-resilience-api", "version": "1.0.0"}
+    return {"status": "ok", "service": "network-resilience-api", "version": "2.0.0"}
 
 @app.get("/api/topology/sample", response_model=Topology)
 def get_sample():
@@ -124,8 +131,6 @@ class CompareRequest(BaseModel):
     before: Topology
     after: Topology
 
-from pydantic import BaseModel
-
 @app.post("/api/recommendations/compare", response_model=ComparisonResponse)
 def compare_topologies(req: CompareRequest):
     """Compares connectivity metrics before and after backup link addition."""
@@ -149,3 +154,47 @@ def predict_link_risks(topology: Topology):
 def get_ml_metrics():
     """Returns model evaluation metrics (accuracy, precision, recall, F1)."""
     return ml_service.get_metrics()
+
+# ==================== NEW CN PROTOCOL ENDPOINTS ====================
+
+@app.post("/api/cn/subnet-calc", response_model=SubnetCalcResponse)
+def subnet_calculator(req: SubnetCalcRequest):
+    """Calculates CIDR subnets, host ranges, and tests subnet membership."""
+    try:
+        return calculate_subnet(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/cn/routing-tables", response_model=List[RouterRoutingTable])
+def get_routing_tables(topology: Topology):
+    """Generates routing tables for all routers in the topology."""
+    return generate_router_routing_tables(topology)
+
+@app.post("/api/cn/ping", response_model=PingResponse)
+def ping_simulation(req: PingRequest):
+    """Simulates ICMP ping between source and destination."""
+    try:
+        return simulate_ping(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/cn/traceroute", response_model=TracerouteResponse)
+def traceroute_simulation(req: TracerouteRequest):
+    """Simulates traceroute hop analysis between source and destination."""
+    try:
+        return simulate_traceroute(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+@app.post("/api/cn/stp-status", response_model=STPResponse)
+def stp_simulation(topology: Topology):
+    """Runs Spanning Tree Protocol (STP) root election and port state assignment."""
+    return simulate_stp(topology)
+
+@app.post("/api/cn/packet-simulation", response_model=PacketSimulationResponse)
+def packet_simulation(req: PacketSimulationRequest):
+    """Simulates step-by-step packet walkthrough with L2 MAC rewrite, L3 IP, and TCP/UDP states."""
+    try:
+        return simulate_packet_walkthrough(req)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
